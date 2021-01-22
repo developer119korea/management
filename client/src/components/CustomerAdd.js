@@ -24,25 +24,29 @@ class CustomerAdd extends React.Component {
       gender: '',
       job: '',
       fileName: '',
-      open: false
+      open: false,
+      errors: {},
     }
   }
 
   handleFormSubmit = (e) => {
     e.preventDefault()
-    this.addCustomer()
-      .then((response) => {
-        this.props.stateRefresh();
+    if (this.handleValidation()) {
+      this.addCustomer()
+        .then((response) => {
+          this.props.stateRefresh();
+        })
+      this.setState({
+        file: null,
+        userName: '',
+        birthday: '',
+        gender: '',
+        job: '',
+        fileName: '',
+        open: false,
+        errors: {},
       })
-    this.setState({
-      file: null,
-      userName: '',
-      birthday: '',
-      gender: '',
-      job: '',
-      fileName: '',
-      open: false
-    })
+    }
   }
 
   handleFileChange = (e) => {
@@ -53,15 +57,18 @@ class CustomerAdd extends React.Component {
   }
 
   handleValueChange = (e) => {
-    let nextState = {};
+    let nextState = this.state;
     nextState[e.target.name] = e.target.value;
+    nextState["errors"][e.target.name] = null;
     this.setState(nextState);
   }
 
   addCustomer = () => {
     const url = '/api/customers';
     const formData = new FormData();
-    formData.append('image', this.state.file)
+    if (this.state.file) {
+      formData.append('image', this.state.file)
+    }
     formData.append('name', this.state.userName)
     formData.append('birthday', this.state.birthday)
     formData.append('gender', this.state.gender)
@@ -88,8 +95,37 @@ class CustomerAdd extends React.Component {
       gender: '',
       job: '',
       fileName: '',
-      open: false
+      open: false,
+      errors: {},
     });
+  }
+
+  handleValidation() {
+    let errors = {};
+    let formIsValid = true;
+
+    if (this.state.userName === '') {
+      formIsValid = false;
+      errors["userName"] = "Cannot be empty";
+    }
+
+    if (this.state.birthday === '') {
+      formIsValid = false;
+      errors["birthday"] = "Cannot be empty";
+    }
+
+    if (this.state.gender === '') {
+      formIsValid = false;
+      errors["gender"] = "Cannot be empty";
+    }
+
+    if (this.state.job === '') {
+      formIsValid = false;
+      errors["job"] = "Cannot be empty";
+    }
+
+    this.setState({ errors: errors });
+    return formIsValid;
   }
 
   render() {
@@ -109,10 +145,10 @@ class CustomerAdd extends React.Component {
               </Button>
             </label>
             <br />
-            <TextField label="이름" type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange} /><br />
-            <TextField label="생년월일" type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange} /><br />
-            <TextField label="성별" type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange} /><br />
-            <TextField label="직업" type="text" name="job" value={this.state.job} onChange={this.handleValueChange} /><br />
+            <TextField error={this.state.errors["userName"] ? true : false} required id="standard-required" label="이름" type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange} /><br />
+            <TextField error={this.state.errors["birthday"] ? true : false} required id="standard-required" label="생년월일" type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange} /><br />
+            <TextField error={this.state.errors["gender"] ? true : false} required id="standard-required" label="성별" type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange} /><br />
+            <TextField error={this.state.errors["job"] ? true : false} required id="standard-required" label="직업" type="text" name="job" value={this.state.job} onChange={this.handleValueChange} /><br />
           </DialogContent>
           <DialogActions>
             <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>추가</Button>
