@@ -187,7 +187,7 @@ class App extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                {cellList.map(c => { return <TableCell className={classes.tableHead}>{c}</TableCell> })}
+                {cellList.map((c, i) => { return <TableCell className={classes.tableHead} key={i}>{c}</TableCell> })}
               </TableRow>
             </TableHead>
             <TableBody>
