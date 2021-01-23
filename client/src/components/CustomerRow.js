@@ -1,9 +1,9 @@
-import React from 'react';
+import { Component } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CustomerDelete from './CustomerDelete';
 
-class Customer extends React.Component {
+class CustomerRow extends Component {
   render() {
     return (
       <TableRow>
@@ -19,4 +19,4 @@ class Customer extends React.Component {
   }
 }
 
-export default Customer;
+export default CustomerRow;

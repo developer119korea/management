@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { post } from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,7 +14,7 @@ const styles = theme => ({
   }
 });
 
-class CustomerAdd extends React.Component {
+class CustomerAdd extends Component {
   constructor(props) {
     super(props);
     this.state = {
