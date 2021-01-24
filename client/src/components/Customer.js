@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 })
 
-class Customers extends Component {
+class Customer extends Component {
 
   constructor(props) {
     super(props);
@@ -114,4 +114,4 @@ class Customers extends Component {
   }
  }
 
-export default withStyles(styles)(Customers); 
+export default withStyles(styles)(Customer); 

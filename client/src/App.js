@@ -1,16 +1,21 @@
 import { Component } from 'react';
-import Customers from './components/Customers';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import Home from './components/Home';
+import Notice from './components/Notice';
+import Customer from './components/Customer';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <BrowserRouter>
         <Navigation />
-        <Customers />
-      </div>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/notice" component={Notice}/>
+        <Route exact path="/customer" component={Customer}/>
+      </BrowserRouter>
     );
   }
 }
 
-export default App;
+export default App; 

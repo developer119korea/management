@@ -1,4 +1,7 @@
 import { Component } from 'react'
+import { Link as RouterLink } from 'react-router-dom';
+
+import Link from '@material-ui/core/Link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -59,7 +62,7 @@ class Navigation extends Component {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
-              고객 관리 시스템
+              콘텐츠 관리 시스템
             </Typography>
           </Toolbar>
         </AppBar>
@@ -70,18 +73,24 @@ class Navigation extends Component {
         >
           <Drawer open={this.state.isOpenDrawer}>
             <List>
+                <Link component={RouterLink} to="/">
               <ListItem button key={"홈"}>
-                <HomeIcon/>
-                <ListItemText primary={"홈"} />
+                  <HomeIcon />
+                  <ListItemText primary={"홈"} />
               </ListItem>
+                </Link>
+                <Link component={RouterLink} to="/notice">
               <ListItem button key={"공지사항"}>
-                <NotificationsIcon/>
-                <ListItemText primary={"공지사항"} />
+                  <NotificationsIcon />
+                  <ListItemText primary={"공지사항"} />
               </ListItem>
+                </Link>
+                <Link component={RouterLink} to="/customer">
               <ListItem button key={"고객정보"}>
-                <PeopleIcon/>
-                <ListItemText primary={"고객정보"} />
+                  <PeopleIcon />
+                  <ListItemText primary={"고객정보"} />
               </ListItem>
+                </Link>
             </List>
           </Drawer>
         </div>
